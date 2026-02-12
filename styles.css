@@ -1,0 +1,288 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    overflow: hidden;
+}
+
+#app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 15px;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+    max-width: 400px;
+}
+
+#search-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+#search-button {
+    padding: 10px 20px;
+    background: white;
+    color: #667eea;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#search-button:hover {
+    transform: scale(1.05);
+}
+
+.legend {
+    background: white;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    z-index: 999;
+}
+
+.legend h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.legend-items {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.3);
+}
+
+.legend-dot.vfr {
+    background-color: #22c55e;
+}
+
+.legend-dot.mvfr {
+    background-color: #3b82f6;
+}
+
+.legend-dot.ifr {
+    background-color: #ef4444;
+}
+
+.legend-dot.lifr {
+    background-color: #ec4899;
+}
+
+.last-update {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+#map {
+    flex: 1;
+    width: 100%;
+    position: relative;
+}
+
+.weather-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 400px;
+    height: 100vh;
+    background: white;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+    z-index: 2000;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+}
+
+.weather-panel.hidden {
+    transform: translateX(100%);
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #666;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.close-button:hover {
+    background: #f0f0f0;
+}
+
+#weather-content {
+    padding: 20px;
+    padding-top: 60px;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.airport-header {
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.airport-header h2 {
+    color: #667eea;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.airport-header .airport-name {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.flight-category {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: white;
+}
+
+.flight-category.VFR {
+    background-color: #22c55e;
+}
+
+.flight-category.MVFR {
+    background-color: #3b82f6;
+}
+
+.flight-category.IFR {
+    background-color: #ef4444;
+}
+
+.flight-category.LIFR {
+    background-color: #ec4899;
+}
+
+.weather-section {
+    margin-bottom: 30px;
+}
+
+.weather-section h3 {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.weather-section .raw-data {
+    background: #f5f5f5;
+    padding: 12px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+}
+
+.weather-section .decoded {
+    line-height: 1.8;
+    color: #444;
+}
+
+.weather-section .decoded p {
+    margin-bottom: 8px;
+}
+
+.weather-section .decoded strong {
+    color: #667eea;
+}
+
+.error {
+    color: #ef4444;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Custom Leaflet marker styles */
+.airport-marker {
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.airport-marker:hover {
+    transform: scale(1.3);
+    z-index: 1000 !important;
+}
+
+@media (max-width: 768px) {
+    .weather-panel {
+        width: 100%;
+    }
+    
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .legend-items {
+        font-size: 0.8rem;
+    }
+}
