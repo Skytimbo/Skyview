@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyBrief - Aviation Weather</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>SkyBrief</h1>
+            <p class="tagline">Aviation Weather at a Glance</p>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search by ICAO code (e.g., KJFK)" maxlength="4">
+                <button id="search-button">Search</button>
+            </div>
+        </header>
+        
+        <div class="legend">
+            <h3>Flight Categories</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <span class="legend-dot vfr"></span>
+                    <span>VFR - Visual Flight Rules</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot mvfr"></span>
+                    <span>MVFR - Marginal VFR</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot ifr"></span>
+                    <span>IFR - Instrument Flight Rules</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot lifr"></span>
+                    <span>LIFR - Low IFR</span>
+                </div>
+            </div>
+            <div class="last-update">
+                Last updated: <span id="last-update-time">Loading...</span>
+            </div>
+        </div>
+
+        <div id="map"></div>
+        
+        <div id="weather-panel" class="weather-panel hidden">
+            <button class="close-button" id="close-panel">&times;</button>
+            <div id="weather-content">
+                <div class="loading">Loading weather data...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="airports.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
