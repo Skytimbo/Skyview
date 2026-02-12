@@ -54,12 +54,26 @@ function getMockWeatherData() {
             flightCategory: category,
             ceilingFt: ceiling,
             visMi: visibility,
-            rawOb: `${airport.icao} ${obsTime.toISOString().substring(11, 13)}${obsTime.toISOString().substring(14, 16)}Z AUTO ${String(windDir).padStart(3, '0')}${String(windSpd).padStart(2, '0')}KT ${visibility}SM ${ceiling < 3000 ? 'OVC' : 'SCT'}${String(Math.floor(ceiling/100)).padStart(3, '0')} ${temp}/${dewp} A${(29.92 + (Math.random() * 0.5 - 0.25)).toFixed(2).replace('.', '')}`,
+            rawOb: formatMockMetar(airport.icao, obsTime, windDir, windSpd, visibility, ceiling, temp, dewp),
             wxString: visibility < 3 ? 'BR' : ''
         };
     });
     
     return mockData;
+}
+
+// Helper function to format mock METAR string
+function formatMockMetar(icao, obsTime, windDir, windSpd, visibility, ceiling, temp, dewp) {
+    const timeStr = `${obsTime.toISOString().substring(11, 13)}${obsTime.toISOString().substring(14, 16)}Z`;
+    const windStr = `${String(windDir).padStart(3, '0')}${String(windSpd).padStart(2, '0')}KT`;
+    const visStr = `${visibility}SM`;
+    const skyStr = ceiling < 3000 ? 'OVC' : 'SCT';
+    const ceilingStr = String(Math.floor(ceiling/100)).padStart(3, '0');
+    const tempStr = `${temp}/${dewp}`;
+    const altimValue = (29.92 + (Math.random() * 0.5 - 0.25)).toFixed(2).replace('.', '');
+    const altimStr = `A${altimValue}`;
+    
+    return `${icao} ${timeStr} AUTO ${windStr} ${visStr} ${skyStr}${ceilingStr} ${tempStr} ${altimStr}`;
 }
 
 // Mock TAF data

@@ -282,13 +282,23 @@ function closeWeatherPanel() {
 async function loadAirportWeather() {
     console.log('Loading weather data for all airports...');
     
-    for (const airport of US_AIRPORTS) {
-        try {
-            await fetchAirportWeather(airport);
-            // Add small delay to avoid overwhelming the API
-            await sleep(100);
-        } catch (error) {
-            console.error(`Error fetching weather for ${airport.icao}:`, error);
+    // Batch API calls to improve performance while respecting rate limits
+    const BATCH_SIZE = 10;
+    const BATCH_DELAY = 200; // ms between batches
+    
+    for (let i = 0; i < US_AIRPORTS.length; i += BATCH_SIZE) {
+        const batch = US_AIRPORTS.slice(i, i + BATCH_SIZE);
+        
+        // Process batch in parallel
+        await Promise.all(
+            batch.map(airport => fetchAirportWeather(airport).catch(error => {
+                console.error(`Error fetching weather for ${airport.icao}:`, error);
+            }))
+        );
+        
+        // Small delay between batches to avoid overwhelming the API
+        if (i + BATCH_SIZE < US_AIRPORTS.length) {
+            await sleep(BATCH_DELAY);
         }
     }
     
@@ -343,11 +353,11 @@ function getFlightCategory(metar) {
     // IFR: Ceiling 500-1000 ft or visibility 1-3 miles
     // LIFR: Ceiling < 500 ft or visibility < 1 mile
     
-    if (ceiling !== null && ceiling < 500 || visibility !== null && visibility < 1) {
+    if ((ceiling !== null && ceiling < 500) || (visibility !== null && visibility < 1)) {
         return 'LIFR';
-    } else if (ceiling !== null && ceiling < 1000 || visibility !== null && visibility < 3) {
+    } else if ((ceiling !== null && ceiling < 1000) || (visibility !== null && visibility < 3)) {
         return 'IFR';
-    } else if (ceiling !== null && ceiling < 3000 || visibility !== null && visibility < 5) {
+    } else if ((ceiling !== null && ceiling < 3000) || (visibility !== null && visibility < 5)) {
         return 'MVFR';
     } else {
         return 'VFR';

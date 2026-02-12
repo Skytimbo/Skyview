@@ -40,7 +40,6 @@ const US_AIRPORTS = [
     { icao: "KSJC", name: "San Jose Intl", lat: 37.3626, lon: -121.9290 },
     { icao: "KSNA", name: "John Wayne Airport", lat: 33.6757, lon: -117.8681 },
     { icao: "KBUR", name: "Bob Hope Airport", lat: 34.2007, lon: -118.3585 },
-    { icao: "KSAC", name: "Sacramento Intl", lat: 38.6954, lon: -121.5907 },
     { icao: "KSMF", name: "Sacramento Intl", lat: 38.6954, lon: -121.5907 },
     { icao: "KRNO", name: "Reno-Tahoe Intl", lat: 39.4991, lon: -119.7681 },
     { icao: "KBOI", name: "Boise Air Terminal", lat: 43.5644, lon: -116.2228 },
@@ -84,9 +83,7 @@ const US_AIRPORTS = [
     
     // South/Southeast
     { icao: "KSAT", name: "San Antonio Intl", lat: 29.5337, lon: -98.4698 },
-    { icao: "KIAH", name: "George Bush Intercontinental", lat: 29.9844, lon: -95.3414 },
     { icao: "KDAL", name: "Dallas Love Field", lat: 32.8470, lon: -96.8517 },
-    { icao: "KMIA", name: "Miami Intl", lat: 25.7932, lon: -80.2906 },
     { icao: "KFLL", name: "Fort Lauderdale-Hollywood Intl", lat: 25.9019, lon: -80.1528 },
     { icao: "KPBI", name: "Palm Beach Intl", lat: 26.6832, lon: -80.0956 },
     { icao: "KRSW", name: "Southwest Florida Intl", lat: 26.5362, lon: -81.7552 },
